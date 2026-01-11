@@ -106,6 +106,11 @@ function App() {
 
   return (
     <div className="app">
+      {installPrompt && (
+        <button className="install-btn" onClick={handleInstall}>
+          Install App
+        </button>
+      )}
       <header className="header">
         <h1 onClick={() => setView('ritual')}>Daymark</h1>
         <p className="header-date">{todayFormatted}</p>
@@ -150,12 +155,6 @@ function App() {
         <button onClick={() => fileInputRef.current?.click()}>Import</button>
         <span className="footer-divider">·</span>
         <button onClick={() => setView('privacy')}>Privacy</button>
-        {installPrompt && (
-          <>
-            <span className="footer-divider">·</span>
-            <button onClick={handleInstall}>Install App</button>
-          </>
-        )}
         <button className="footer-cta" onClick={() => setView('support')}>Buy me a coffee</button>
         <input
           ref={fileInputRef}

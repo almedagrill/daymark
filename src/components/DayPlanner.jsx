@@ -299,15 +299,12 @@ function DayPlanner() {
                 top: block.startSlot * SLOT_HEIGHT,
                 height: block.duration * SLOT_HEIGHT - 4,
               }}
-              onPointerDown={(e) => handleDragStart(e, block)}
               onClick={(e) => handleBlockClick(e, block)}
+              onPointerDown={(e) => {
+                if (e.target.closest('.resize-handle') || e.target.closest('.block-actions')) return
+                handleDragStart(e, block)
+              }}
             >
-              <button
-                className="block-check"
-                onClick={(e) => handleToggleComplete(e, block.id)}
-              >
-                {block.completed ? '✓' : '○'}
-              </button>
               {editingBlockId === block.id ? (
                 <input
                   ref={inputRef}
@@ -322,16 +319,26 @@ function DayPlanner() {
               ) : (
                 <span className="block-title">{block.title || 'Untitled'}</span>
               )}
-              <button
-                className="block-delete"
-                onClick={(e) => handleDeleteBlock(e, block.id)}
-              >
-                ×
-              </button>
+              <div className="block-actions">
+                <button
+                  className="block-action-btn"
+                  onClick={(e) => handleToggleComplete(e, block.id)}
+                >
+                  {block.completed ? '✓' : '○'}
+                </button>
+                <button
+                  className="block-action-btn block-delete-btn"
+                  onClick={(e) => handleDeleteBlock(e, block.id)}
+                >
+                  ×
+                </button>
+              </div>
               <div
                 className="resize-handle"
                 onPointerDown={(e) => handleResizeStart(e, block)}
-              />
+              >
+                <span className="resize-dots"></span>
+              </div>
             </div>
           ))}
         </div>
