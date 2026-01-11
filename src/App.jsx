@@ -156,7 +156,6 @@ function App() {
             <button onClick={handleInstall}>Install App</button>
           </>
         )}
-        <span className="footer-divider">·</span>
         <button className="footer-cta" onClick={() => setView('support')}>Buy me a coffee</button>
         <input
           ref={fileInputRef}
