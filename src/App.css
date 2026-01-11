@@ -1226,6 +1226,18 @@ body {
   margin: 0 4px;
 }
 
+.footer-cta {
+  border: 1px solid var(--text-muted) !important;
+  border-radius: var(--radius-sm);
+  padding: 6px 12px !important;
+  text-decoration: none !important;
+  margin-left: 4px;
+}
+
+.footer-cta:hover {
+  border-color: var(--text-primary) !important;
+}
+
 /* ============================================
    SUPPORT PAGE
    ============================================ */

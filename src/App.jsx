@@ -149,8 +149,6 @@ function App() {
         <span className="footer-divider">·</span>
         <button onClick={() => fileInputRef.current?.click()}>Import</button>
         <span className="footer-divider">·</span>
-        <button onClick={() => setView('support')}>Support</button>
-        <span className="footer-divider">·</span>
         <button onClick={() => setView('privacy')}>Privacy</button>
         {installPrompt && (
           <>
@@ -158,6 +156,8 @@ function App() {
             <button onClick={handleInstall}>Install App</button>
           </>
         )}
+        <span className="footer-divider">·</span>
+        <button className="footer-cta" onClick={() => setView('support')}>Buy me a coffee</button>
         <input
           ref={fileInputRef}
           type="file"
