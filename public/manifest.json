@@ -1,0 +1,16 @@
+{
+  "name": "Daymark",
+  "short_name": "Daymark",
+  "description": "A minimal daily journaling app for reflection and planning",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
