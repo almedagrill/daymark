@@ -1,4 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="64" fill="#171717"/>
-  <text x="256" y="320" font-family="Georgia, serif" font-size="280" font-style="italic" fill="#fafafa" text-anchor="middle">D</text>
+  <rect width="512" height="512" rx="96" fill="#171717"/>
+
+  <!-- Sun rays -->
+  <g stroke="#fafafa" stroke-width="12" stroke-linecap="round">
+    <!-- Top -->
+    <line x1="256" y1="80" x2="256" y2="120"/>
+    <!-- Top right -->
+    <line x1="360" y1="112" x2="332" y2="140"/>
+    <!-- Right -->
+    <line x1="432" y1="216" x2="392" y2="216"/>
+    <!-- Bottom right -->
+    <line x1="360" y1="400" x2="332" y2="372"/>
+    <!-- Bottom -->
+    <line x1="256" y1="432" x2="256" y2="392"/>
+    <!-- Bottom left -->
+    <line x1="152" y1="400" x2="180" y2="372"/>
+    <!-- Left -->
+    <line x1="80" y1="216" x2="120" y2="216"/>
+    <!-- Top left -->
+    <line x1="152" y1="112" x2="180" y2="140"/>
+  </g>
+
+  <!-- Letter D -->
+  <text x="256" y="295" font-family="Georgia, serif" font-size="220" font-style="italic" font-weight="400" fill="#fafafa" text-anchor="middle">D</text>
 </svg>
