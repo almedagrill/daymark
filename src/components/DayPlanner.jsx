@@ -162,6 +162,18 @@ function DayPlanner() {
     saveDayPlan(dateKey, updatedPlan)
   }
 
+  // Toggle block completion
+  const handleToggleComplete = (e, blockId) => {
+    e.stopPropagation()
+    const updatedPlan = {
+      blocks: dayPlan.blocks.map(b =>
+        b.id === blockId ? { ...b, completed: !b.completed } : b
+      )
+    }
+    setDayPlan(updatedPlan)
+    saveDayPlan(dateKey, updatedPlan)
+  }
+
   // Drag to move
   const handleDragStart = (e, block) => {
     if (editingBlockId === block.id) return
@@ -282,7 +294,7 @@ function DayPlanner() {
           {dayPlan.blocks.map((block) => (
             <div
               key={block.id}
-              className={`time-block ${draggingBlock === block.id ? 'dragging' : ''} ${resizingBlock === block.id ? 'resizing' : ''}`}
+              className={`time-block ${draggingBlock === block.id ? 'dragging' : ''} ${resizingBlock === block.id ? 'resizing' : ''} ${block.completed ? 'completed' : ''}`}
               style={{
                 top: block.startSlot * SLOT_HEIGHT,
                 height: block.duration * SLOT_HEIGHT - 4,
@@ -290,6 +302,12 @@ function DayPlanner() {
               onPointerDown={(e) => handleDragStart(e, block)}
               onClick={(e) => handleBlockClick(e, block)}
             >
+              <button
+                className="block-check"
+                onClick={(e) => handleToggleComplete(e, block.id)}
+              >
+                {block.completed ? '✓' : '○'}
+              </button>
               {editingBlockId === block.id ? (
                 <input
                   ref={inputRef}

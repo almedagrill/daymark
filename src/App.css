@@ -1062,7 +1062,7 @@ body {
   background: var(--bg-input);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
-  padding: 6px 24px;
+  padding: 6px 28px 6px 32px;
   cursor: grab;
   pointer-events: auto;
   display: flex;
@@ -1089,6 +1089,43 @@ body {
 
 .time-block.resizing {
   border-color: var(--text-primary);
+}
+
+.time-block.completed {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+}
+
+.time-block.completed .block-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.block-check {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.block-check:hover {
+  color: var(--text-primary);
+}
+
+.time-block.completed .block-check {
+  color: var(--success);
 }
 
 .block-title {
