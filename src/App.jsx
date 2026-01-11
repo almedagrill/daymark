@@ -6,6 +6,7 @@ import WeeklySummary from './components/WeeklySummary'
 import HistoryList from './components/HistoryList'
 import EntryView from './components/EntryView'
 import Support from './components/Support'
+import Privacy from './components/Privacy'
 import { getDailyQuote } from './data/stoicQuotes'
 
 const STORAGE_KEYS = {
@@ -138,6 +139,7 @@ function App() {
         {view === 'history' && <HistoryList onViewEntry={handleViewEntry} />}
         {view === 'entry' && <EntryView date={selectedDate} onBack={handleBack} />}
         {view === 'support' && <Support />}
+        {view === 'privacy' && <Privacy />}
       </main>
 
       <footer className="footer">
@@ -148,6 +150,8 @@ function App() {
         <button onClick={() => fileInputRef.current?.click()}>Import</button>
         <span className="footer-divider">·</span>
         <button onClick={() => setView('support')}>Support</button>
+        <span className="footer-divider">·</span>
+        <button onClick={() => setView('privacy')}>Privacy</button>
         {installPrompt && (
           <>
             <span className="footer-divider">·</span>
