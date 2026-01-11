@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import DailyRitual from './components/DailyRitual'
 import DayPlanner from './components/DayPlanner'
 import WeekPlanner from './components/WeekPlanner'
@@ -16,7 +16,26 @@ const STORAGE_KEYS = {
 function App() {
   const [view, setView] = useState('ritual')
   const [selectedDate, setSelectedDate] = useState(null)
+  const [installPrompt, setInstallPrompt] = useState(null)
   const fileInputRef = useRef(null)
+
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault()
+      setInstallPrompt(e)
+    }
+    window.addEventListener('beforeinstallprompt', handler)
+    return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [])
+
+  const handleInstall = async () => {
+    if (!installPrompt) return
+    installPrompt.prompt()
+    const { outcome } = await installPrompt.userChoice
+    if (outcome === 'accepted') {
+      setInstallPrompt(null)
+    }
+  }
 
   const handleViewEntry = (date) => {
     setSelectedDate(date)
@@ -125,6 +144,12 @@ function App() {
         <button onClick={handleExport}>Export</button>
         <span className="footer-divider">·</span>
         <button onClick={() => fileInputRef.current?.click()}>Import</button>
+        {installPrompt && (
+          <>
+            <span className="footer-divider">·</span>
+            <button onClick={handleInstall}>Install App</button>
+          </>
+        )}
         <input
           ref={fileInputRef}
           type="file"
