@@ -26,7 +26,7 @@ function Support() {
           habits or find more clarity in your days, consider buying me a coffee.
         </p>
         <a
-          href="https://buymeacoffee.com/yourusername"
+          href="https://buymeacoffee.com/almedagrill"
           target="_blank"
           rel="noopener noreferrer"
           className="support-button"
