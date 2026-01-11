@@ -1,26 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#171717"/>
+  <rect width="512" height="512" rx="96" fill="#ffffff"/>
 
   <!-- Sun rays -->
-  <g stroke="#fafafa" stroke-width="12" stroke-linecap="round">
+  <g stroke="#888888" stroke-width="10" stroke-linecap="round">
     <!-- Top -->
-    <line x1="256" y1="80" x2="256" y2="120"/>
+    <line x1="256" y1="70" x2="256" y2="115"/>
     <!-- Top right -->
-    <line x1="360" y1="112" x2="332" y2="140"/>
+    <line x1="370" y1="102" x2="338" y2="134"/>
     <!-- Right -->
-    <line x1="432" y1="216" x2="392" y2="216"/>
+    <line x1="442" y1="256" x2="397" y2="256"/>
     <!-- Bottom right -->
-    <line x1="360" y1="400" x2="332" y2="372"/>
+    <line x1="370" y1="410" x2="338" y2="378"/>
     <!-- Bottom -->
-    <line x1="256" y1="432" x2="256" y2="392"/>
+    <line x1="256" y1="442" x2="256" y2="397"/>
     <!-- Bottom left -->
-    <line x1="152" y1="400" x2="180" y2="372"/>
+    <line x1="142" y1="410" x2="174" y2="378"/>
     <!-- Left -->
-    <line x1="80" y1="216" x2="120" y2="216"/>
+    <line x1="70" y1="256" x2="115" y2="256"/>
     <!-- Top left -->
-    <line x1="152" y1="112" x2="180" y2="140"/>
+    <line x1="142" y1="102" x2="174" y2="134"/>
   </g>
 
   <!-- Letter D -->
-  <text x="256" y="295" font-family="Georgia, serif" font-size="220" font-style="italic" font-weight="400" fill="#fafafa" text-anchor="middle">D</text>
+  <text x="256" y="290" font-family="Georgia, serif" font-size="200" font-style="italic" font-weight="400" fill="#888888" text-anchor="middle" dominant-baseline="central">D</text>
 </svg>
