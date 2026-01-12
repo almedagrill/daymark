@@ -178,6 +178,7 @@ function DayPlanner() {
   const handleDragStart = (e, block) => {
     if (editingBlockId === block.id) return
     e.preventDefault()
+    e.target.setPointerCapture(e.pointerId)
     setDraggingBlock(block.id)
     setDragStartY(e.clientY)
     setDragStartSlot(block.startSlot)
@@ -246,6 +247,7 @@ function DayPlanner() {
   const handleResizeStart = (e, block) => {
     e.preventDefault()
     e.stopPropagation()
+    e.target.setPointerCapture(e.pointerId)
     setResizingBlock(block.id)
     setDragStartY(e.clientY)
     setDragStartDuration(block.duration)
