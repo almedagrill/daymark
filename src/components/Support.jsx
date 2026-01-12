@@ -36,7 +36,7 @@ function Support() {
       </div>
 
       <p className="made-with">
-        Made with care in California.
+        Made with care by <a href="https://instagram.com/francis.almeda" target="_blank" rel="noopener noreferrer">Francis Almeda</a>
       </p>
     </div>
   )
