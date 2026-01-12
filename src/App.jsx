@@ -31,14 +31,15 @@ function App() {
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
 
-  // Check for iOS Safari and show install prompt
+  // Check for iOS and show install prompt
   useEffect(() => {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+    const isChrome = /CriOS/.test(navigator.userAgent)
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches
     const dismissed = localStorage.getItem('daymark-ios-prompt-dismissed')
 
     if (isIOS && !isStandalone && !dismissed) {
-      setShowIOSPrompt(true)
+      setShowIOSPrompt(isChrome ? 'chrome' : 'safari')
     }
   }, [])
 
@@ -130,7 +131,12 @@ function App() {
       )}
       {showIOSPrompt && (
         <div className="ios-prompt">
-          <span>Install Daymark: tap <strong>Share</strong> then <strong>"Add to Home Screen"</strong></span>
+          <span>
+            {showIOSPrompt === 'chrome'
+              ? <>To install: open in <strong>Safari</strong>, tap <strong>Share</strong>, then <strong>"Add to Home Screen"</strong></>
+              : <>Install Daymark: tap <strong>Share</strong> then <strong>"Add to Home Screen"</strong></>
+            }
+          </span>
           <button onClick={dismissIOSPrompt}>×</button>
         </div>
       )}
