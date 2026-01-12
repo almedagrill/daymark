@@ -90,6 +90,7 @@ function DailyRitual() {
             <div key={i} className="input-row">
               <span className="input-number">{i + 1}</span>
               <textarea
+                className={item.trim() ? 'has-content' : ''}
                 value={item}
                 onChange={(e) => { handleGratitudeChange(i, e.target.value); autoResize(e) }}
                 onInput={autoResize}
@@ -111,6 +112,7 @@ function DailyRitual() {
             <div key={i} className="input-row">
               <span className="input-number">{i + 1}</span>
               <textarea
+                className={item.trim() ? 'has-content' : ''}
                 value={item}
                 onChange={(e) => { handleAffirmationChange(i, e.target.value); autoResize(e) }}
                 onInput={autoResize}

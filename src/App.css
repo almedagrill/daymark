@@ -326,6 +326,12 @@ body {
   overflow: hidden;
 }
 
+.input-row textarea.has-content:not(:focus) {
+  background: transparent;
+  border-color: transparent;
+  padding-left: 0;
+}
+
 .form-section input,
 .form-section textarea {
   flex: 1;
