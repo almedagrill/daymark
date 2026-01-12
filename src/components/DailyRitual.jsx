@@ -132,9 +132,15 @@ function DailyRitual() {
           <h2>Your goal</h2>
           <input
             type="text"
-            className="goal-input"
+            className={`goal-input ${goal.trim() ? 'has-content' : ''}`}
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                e.target.blur()
+              }
+            }}
             placeholder="What are you working toward?"
           />
         </section>
@@ -142,10 +148,17 @@ function DailyRitual() {
         <section className="form-section">
           <h2>Move the needle</h2>
           <textarea
+            className={needle.trim() ? 'has-content' : ''}
             placeholder="One thing that will move you closer to your goal..."
             value={needle}
             onChange={(e) => { setNeedle(e.target.value); autoResize(e) }}
             onInput={autoResize}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                e.target.blur()
+              }
+            }}
             rows={2}
           />
         </section>
@@ -153,10 +166,17 @@ function DailyRitual() {
         <section className="form-section leave-it-here">
           <h2>Leave it here</h2>
           <textarea
+            className={leaveItHere.trim() ? 'has-content' : ''}
             placeholder="Thoughts, moods, stresses... let it out."
             value={leaveItHere}
             onChange={(e) => { setLeaveItHere(e.target.value); autoResize(e) }}
             onInput={autoResize}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                e.target.blur()
+              }
+            }}
             rows={3}
           />
         </section>
@@ -196,10 +216,17 @@ function DailyRitual() {
         <section className="form-section">
           <h2>Reflection</h2>
           <textarea
+            className={reflectionNote.trim() ? 'has-content' : ''}
             placeholder="How did the day go? What did you learn?"
             value={reflectionNote}
             onChange={(e) => { setReflectionNote(e.target.value); autoResize(e) }}
             onInput={autoResize}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                e.target.blur()
+              }
+            }}
             rows={3}
           />
         </section>
