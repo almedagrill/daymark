@@ -83,6 +83,38 @@ body {
   color: var(--text-primary);
 }
 
+.ios-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: var(--space-md);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.ios-prompt strong {
+  color: var(--text-primary);
+}
+
+.ios-prompt button {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.ios-prompt button:hover {
+  color: var(--text-primary);
+}
+
 /* ============================================
    HEADER
    ============================================ */

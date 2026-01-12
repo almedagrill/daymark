@@ -19,6 +19,7 @@ function App() {
   const [view, setView] = useState('ritual')
   const [selectedDate, setSelectedDate] = useState(null)
   const [installPrompt, setInstallPrompt] = useState(null)
+  const [showIOSPrompt, setShowIOSPrompt] = useState(false)
   const fileInputRef = useRef(null)
 
   useEffect(() => {
@@ -29,6 +30,22 @@ function App() {
     window.addEventListener('beforeinstallprompt', handler)
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
+
+  // Check for iOS Safari and show install prompt
+  useEffect(() => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+    const dismissed = localStorage.getItem('daymark-ios-prompt-dismissed')
+
+    if (isIOS && !isStandalone && !dismissed) {
+      setShowIOSPrompt(true)
+    }
+  }, [])
+
+  const dismissIOSPrompt = () => {
+    setShowIOSPrompt(false)
+    localStorage.setItem('daymark-ios-prompt-dismissed', 'true')
+  }
 
   const handleInstall = async () => {
     if (!installPrompt) return
@@ -110,6 +127,12 @@ function App() {
         <button className="install-btn" onClick={handleInstall}>
           Install App
         </button>
+      )}
+      {showIOSPrompt && (
+        <div className="ios-prompt">
+          <span>Install Daymark: tap <strong>Share</strong> then <strong>"Add to Home Screen"</strong></span>
+          <button onClick={dismissIOSPrompt}>×</button>
+        </div>
       )}
       <header className="header">
         <h1 onClick={() => setView('ritual')}>Daymark</h1>
