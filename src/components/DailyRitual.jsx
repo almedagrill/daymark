@@ -66,17 +66,6 @@ function DailyRitual() {
 
   return (
     <div className="daily-ritual">
-      {/* Goal */}
-      <div className="goal-section">
-        <input
-          type="text"
-          className="goal-input"
-          value={goal}
-          onChange={(e) => setGoal(e.target.value)}
-          placeholder="Your goal..."
-        />
-      </div>
-
       {/* Morning Section */}
       <div className="ritual-section morning-section">
         <div className="section-label">Morning</div>
@@ -110,9 +99,20 @@ function DailyRitual() {
         </section>
 
         <section className="form-section">
-          <h2>What will I do today to move the needle?</h2>
+          <h2>Your goal</h2>
+          <input
+            type="text"
+            className="goal-input"
+            value={goal}
+            onChange={(e) => setGoal(e.target.value)}
+            placeholder="What are you working toward?"
+          />
+        </section>
+
+        <section className="form-section">
+          <h2>Move the needle</h2>
           <textarea
-            placeholder="One thing that will make today count..."
+            placeholder="One thing that will move you closer to your goal..."
             value={needle}
             onChange={(e) => setNeedle(e.target.value)}
             rows={3}
