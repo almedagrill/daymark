@@ -1,9 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useJournalEntries } from '../hooks/useLocalStorage'
 
 function DailyRitual() {
   const { saveEntry, getTodayEntry } = useJournalEntries()
   const [saved, setSaved] = useState(false)
+
+  // Auto-resize textarea to fit content
+  const autoResize = useCallback((e) => {
+    const el = e.target
+    el.style.height = 'auto'
+    el.style.height = el.scrollHeight + 'px'
+  }, [])
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -31,6 +38,13 @@ function DailyRitual() {
         setReflectionNote(existing.reflection.note || '')
       }
     }
+    // Auto-resize textareas after content loads
+    setTimeout(() => {
+      document.querySelectorAll('.daily-ritual textarea').forEach(el => {
+        el.style.height = 'auto'
+        el.style.height = el.scrollHeight + 'px'
+      })
+    }, 0)
   }, [])
 
   const handleGratitudeChange = (index, value) => {
@@ -114,8 +128,9 @@ function DailyRitual() {
           <textarea
             placeholder="One thing that will move you closer to your goal..."
             value={needle}
-            onChange={(e) => setNeedle(e.target.value)}
-            rows={3}
+            onChange={(e) => { setNeedle(e.target.value); autoResize(e) }}
+            onInput={autoResize}
+            rows={2}
           />
         </section>
 
@@ -124,8 +139,9 @@ function DailyRitual() {
           <textarea
             placeholder="Thoughts, moods, stresses... let it out."
             value={leaveItHere}
-            onChange={(e) => setLeaveItHere(e.target.value)}
-            rows={5}
+            onChange={(e) => { setLeaveItHere(e.target.value); autoResize(e) }}
+            onInput={autoResize}
+            rows={3}
           />
         </section>
       </div>
@@ -166,8 +182,9 @@ function DailyRitual() {
           <textarea
             placeholder="How did the day go? What did you learn?"
             value={reflectionNote}
-            onChange={(e) => setReflectionNote(e.target.value)}
-            rows={4}
+            onChange={(e) => { setReflectionNote(e.target.value); autoResize(e) }}
+            onInput={autoResize}
+            rows={3}
           />
         </section>
       </div>

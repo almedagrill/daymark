@@ -347,13 +347,14 @@ body {
 }
 
 .form-section textarea {
-  resize: vertical;
-  min-height: 80px;
+  resize: none;
+  min-height: 60px;
   line-height: 1.6;
+  overflow: hidden;
 }
 
 .form-section.leave-it-here textarea {
-  min-height: 120px;
+  min-height: 80px;
   font-style: italic;
 }
 
