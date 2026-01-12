@@ -3,7 +3,6 @@ import { useJournalEntries } from '../hooks/useLocalStorage'
 
 function DailyRitual() {
   const { saveEntry, getTodayEntry } = useJournalEntries()
-  const [saved, setSaved] = useState(false)
 
   // Auto-resize textarea to fit content
   const autoResize = useCallback((e) => {
@@ -59,22 +58,25 @@ function DailyRitual() {
     setAffirmations(updated)
   }
 
-  const handleSave = () => {
-    saveEntry({
-      date: today,
-      goal,
-      gratitude,
-      affirmations,
-      needle,
-      leaveItHere,
-      reflection: {
-        completed,
-        note: reflectionNote,
-      },
-    })
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
-  }
+  // Auto-save when any field changes
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      saveEntry({
+        date: today,
+        goal,
+        gratitude,
+        affirmations,
+        needle,
+        leaveItHere,
+        reflection: {
+          completed,
+          note: reflectionNote,
+        },
+      })
+    }, 500) // Debounce 500ms
+
+    return () => clearTimeout(timeoutId)
+  }, [goal, gratitude, affirmations, needle, leaveItHere, completed, reflectionNote])
 
   const hasMorningContent = needle.trim() || gratitude.some(g => g.trim())
 
@@ -232,9 +234,6 @@ function DailyRitual() {
         </section>
       </div>
 
-      <button type="button" className="save-button" onClick={handleSave}>
-        {saved ? 'Saved' : 'Save'}
-      </button>
     </div>
   )
 }
