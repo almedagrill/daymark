@@ -89,10 +89,17 @@ function DailyRitual() {
           {gratitude.map((item, i) => (
             <div key={i} className="input-row">
               <span className="input-number">{i + 1}</span>
-              <input
-                type="text"
+              <textarea
                 value={item}
-                onChange={(e) => handleGratitudeChange(i, e.target.value)}
+                onChange={(e) => { handleGratitudeChange(i, e.target.value); autoResize(e) }}
+                onInput={autoResize}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault()
+                    e.target.blur()
+                  }
+                }}
+                rows={1}
               />
             </div>
           ))}
@@ -103,10 +110,17 @@ function DailyRitual() {
           {affirmations.map((item, i) => (
             <div key={i} className="input-row">
               <span className="input-number">{i + 1}</span>
-              <input
-                type="text"
+              <textarea
                 value={item}
-                onChange={(e) => handleAffirmationChange(i, e.target.value)}
+                onChange={(e) => { handleAffirmationChange(i, e.target.value); autoResize(e) }}
+                onInput={autoResize}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault()
+                    e.target.blur()
+                  }
+                }}
+                rows={1}
               />
             </div>
           ))}

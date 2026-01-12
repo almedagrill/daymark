@@ -306,7 +306,7 @@ body {
 
 .input-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-sm);
   margin-bottom: var(--space-xs);
 }
@@ -317,6 +317,13 @@ body {
   color: var(--text-muted);
   width: 20px;
   text-align: right;
+  padding-top: 12px;
+}
+
+.input-row textarea {
+  min-height: 44px;
+  resize: none;
+  overflow: hidden;
 }
 
 .form-section input,
