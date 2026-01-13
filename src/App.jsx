@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import DailyRitual from './components/DailyRitual'
 import DayPlanner from './components/DayPlanner'
 import WeekPlanner from './components/WeekPlanner'
@@ -193,6 +194,7 @@ function App() {
           style={{ display: 'none' }}
         />
       </footer>
+      <Analytics />
     </div>
   )
 }
