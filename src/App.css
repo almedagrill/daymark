@@ -1107,8 +1107,9 @@ body {
 }
 
 .day-priority-section textarea.has-content:not(:focus) {
-  background: rgba(0, 0, 0, 0.02);
-  border-color: var(--border);
+  background: transparent;
+  border-color: transparent;
+  padding-left: 0;
 }
 
 .time-grid {
