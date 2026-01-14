@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useDayPlans } from '../hooks/useLocalStorage'
 
 const TOTAL_SLOTS = 34 // 5 AM to 9:30 PM (17 hours × 2)
@@ -21,6 +21,7 @@ function DayPlanner() {
   const { getTodayKey, getDayPlan, saveDayPlan } = useDayPlans()
   const [dateKey, setDateKey] = useState(getTodayKey())
   const [dayPlan, setDayPlan] = useState({ blocks: [] })
+  const [priority, setPriority] = useState('')
   const [editingBlockId, setEditingBlockId] = useState(null)
   const [editingTitle, setEditingTitle] = useState('')
   const [draggingBlock, setDraggingBlock] = useState(null)
@@ -30,9 +31,26 @@ function DayPlanner() {
   const [dragStartDuration, setDragStartDuration] = useState(0)
   const gridRef = useRef(null)
   const inputRef = useRef(null)
+  const priorityRef = useRef(null)
+
+  // Auto-resize textarea to fit content
+  const autoResize = useCallback((e) => {
+    const el = e.target
+    el.style.height = 'auto'
+    el.style.height = el.scrollHeight + 'px'
+  }, [])
 
   useEffect(() => {
-    setDayPlan(getDayPlan(dateKey))
+    const plan = getDayPlan(dateKey)
+    setDayPlan(plan)
+    setPriority(plan.priority || '')
+    // Auto-resize priority textarea after content loads
+    setTimeout(() => {
+      if (priorityRef.current) {
+        priorityRef.current.style.height = 'auto'
+        priorityRef.current.style.height = priorityRef.current.scrollHeight + 'px'
+      }
+    }, 0)
   }, [dateKey])
 
   useEffect(() => {
@@ -41,6 +59,17 @@ function DayPlanner() {
       inputRef.current.select()
     }
   }, [editingBlockId])
+
+  // Auto-save priority when it changes
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const currentPlan = getDayPlan(dateKey)
+      if (currentPlan.priority !== priority) {
+        saveDayPlan(dateKey, { ...currentPlan, priority })
+      }
+    }, 500)
+    return () => clearTimeout(timeoutId)
+  }, [priority, dateKey])
 
   const formatDate = (dateStr) => {
     return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
@@ -277,6 +306,25 @@ function DayPlanner() {
           Go to today
         </button>
       )}
+
+      <section className="form-section day-priority-section">
+        <h2>Priority</h2>
+        <textarea
+          ref={priorityRef}
+          className={priority.trim() ? 'has-content' : ''}
+          placeholder="What's the most important thing to accomplish today?"
+          value={priority}
+          onChange={(e) => { setPriority(e.target.value); autoResize(e) }}
+          onInput={autoResize}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault()
+              e.target.blur()
+            }
+          }}
+          rows={1}
+        />
+      </section>
 
       <div className="time-grid" ref={gridRef}>
         {/* Time slot backgrounds */}
