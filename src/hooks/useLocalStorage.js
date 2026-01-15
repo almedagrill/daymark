@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 const STORAGE_KEY = 'morning-start-entries'
 const WEEK_PLANS_KEY = 'daymark-week-plans'
 const DAY_PLANS_KEY = 'daymark-day-plans'
+const HABITS_KEY = 'daymark-habits'
 
 export function useJournalEntries() {
   const [entries, setEntries] = useState(() => {
@@ -237,5 +238,74 @@ export function useDayPlans() {
     updateBlock,
     deleteBlock,
     moveBlock,
+  }
+}
+
+export function useHabits() {
+  const [habits, setHabits] = useState(() => {
+    try {
+      const stored = localStorage.getItem(HABITS_KEY)
+      return stored ? JSON.parse(stored) : []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem(HABITS_KEY, JSON.stringify(habits))
+  }, [habits])
+
+  const addHabit = (name) => {
+    const newHabit = {
+      id: 'habit-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
+      name,
+      startDate: new Date().toISOString().split('T')[0],
+      completedDays: [],
+    }
+    setHabits((prev) => [...prev, newHabit])
+    return newHabit.id
+  }
+
+  const updateHabitName = (habitId, name) => {
+    setHabits((prev) =>
+      prev.map((h) => (h.id === habitId ? { ...h, name } : h))
+    )
+  }
+
+  const toggleDay = (habitId, dayIndex) => {
+    setHabits((prev) =>
+      prev.map((h) => {
+        if (h.id !== habitId) return h
+        const completedDays = [...h.completedDays]
+        if (completedDays.includes(dayIndex)) {
+          return { ...h, completedDays: completedDays.filter((d) => d !== dayIndex) }
+        } else {
+          return { ...h, completedDays: [...completedDays, dayIndex] }
+        }
+      })
+    )
+  }
+
+  const deleteHabit = (habitId) => {
+    setHabits((prev) => prev.filter((h) => h.id !== habitId))
+  }
+
+  const resetHabit = (habitId) => {
+    setHabits((prev) =>
+      prev.map((h) =>
+        h.id === habitId
+          ? { ...h, startDate: new Date().toISOString().split('T')[0], completedDays: [] }
+          : h
+      )
+    )
+  }
+
+  return {
+    habits,
+    addHabit,
+    updateHabitName,
+    toggleDay,
+    deleteHabit,
+    resetHabit,
   }
 }

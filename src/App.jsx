@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react'
 import DailyRitual from './components/DailyRitual'
 import DayPlanner from './components/DayPlanner'
 import WeekPlanner from './components/WeekPlanner'
+import HabitTracker from './components/HabitTracker'
 import WeeklySummary from './components/WeeklySummary'
 import HistoryList from './components/HistoryList'
 import EntryView from './components/EntryView'
@@ -14,6 +15,7 @@ const STORAGE_KEYS = {
   entries: 'morning-start-entries',
   weekPlans: 'daymark-week-plans',
   dayPlans: 'daymark-day-plans',
+  habits: 'daymark-habits',
 }
 
 function App() {
@@ -74,6 +76,7 @@ function App() {
       entries: JSON.parse(localStorage.getItem(STORAGE_KEYS.entries) || '[]'),
       weekPlans: JSON.parse(localStorage.getItem(STORAGE_KEYS.weekPlans) || '{}'),
       dayPlans: JSON.parse(localStorage.getItem(STORAGE_KEYS.dayPlans) || '{}'),
+      habits: JSON.parse(localStorage.getItem(STORAGE_KEYS.habits) || '[]'),
     }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
@@ -101,6 +104,9 @@ function App() {
         if (data.dayPlans) {
           localStorage.setItem(STORAGE_KEYS.dayPlans, JSON.stringify(data.dayPlans))
         }
+        if (data.habits) {
+          localStorage.setItem(STORAGE_KEYS.habits, JSON.stringify(data.habits))
+        }
         window.location.reload()
       } catch (err) {
         alert('Invalid backup file')
@@ -114,6 +120,7 @@ function App() {
     { id: 'ritual', label: 'Reflect' },
     { id: 'day', label: 'Today' },
     { id: 'week', label: 'Week' },
+    { id: 'habits', label: 'Habits' },
   ]
 
   const quote = getDailyQuote()
@@ -170,6 +177,7 @@ function App() {
         {view === 'ritual' && <DailyRitual />}
         {view === 'day' && <DayPlanner />}
         {view === 'week' && <WeekPlanner />}
+        {view === 'habits' && <HabitTracker />}
         {view === 'summary' && <WeeklySummary onViewEntry={handleViewEntry} />}
         {view === 'history' && <HistoryList onViewEntry={handleViewEntry} />}
         {view === 'entry' && <EntryView date={selectedDate} onBack={handleBack} />}
