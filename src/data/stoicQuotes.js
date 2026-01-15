@@ -126,9 +126,15 @@ export const stoicQuotes = [
 ]
 
 export function getDailyQuote() {
+  // Create a seed from today's date for consistent daily randomness
   const today = new Date()
-  const dayOfYear = Math.floor(
-    (today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24)
-  )
-  return stoicQuotes[dayOfYear % stoicQuotes.length]
+  const dateString = today.toISOString().split('T')[0]
+  let seed = 0
+  for (let i = 0; i < dateString.length; i++) {
+    seed = ((seed << 5) - seed) + dateString.charCodeAt(i)
+    seed = seed & seed
+  }
+  // Use the seed to pick a random quote
+  const index = Math.abs(seed) % stoicQuotes.length
+  return stoicQuotes[index]
 }
