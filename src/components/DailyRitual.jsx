@@ -132,18 +132,19 @@ function DailyRitual() {
 
         <section className="form-section">
           <h2>Your goal</h2>
-          <input
-            type="text"
+          <textarea
             className={`goal-input ${goal.trim() ? 'has-content' : ''}`}
             value={goal}
-            onChange={(e) => setGoal(e.target.value)}
+            onChange={(e) => { setGoal(e.target.value); autoResize(e) }}
+            onInput={autoResize}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault()
                 e.target.blur()
               }
             }}
             placeholder="What are you working toward?"
+            rows={2}
           />
         </section>
 
