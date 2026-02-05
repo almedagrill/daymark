@@ -1059,93 +1059,6 @@ body {
   min-height: 50px;
 }
 
-/* Layout Toggle */
-.layout-toggle {
-  display: flex;
-  justify-content: center;
-  gap: 2px;
-  margin-bottom: var(--space-sm);
-  background: var(--bg-input);
-  border-radius: var(--radius-sm);
-  padding: 2px;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.layout-toggle button {
-  padding: 4px 14px;
-  border: none;
-  border-radius: 3px;
-  background: transparent;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.layout-toggle button.active {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-}
-
-.layout-toggle button:hover:not(.active) {
-  color: var(--text-secondary);
-}
-
-/* Horizontal Week Layout */
-.week-grid-horizontal {
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.week-grid-horizontal .day-box {
-  min-height: 180px;
-}
-
-.week-grid-horizontal .day-box.weekend-box {
-  min-height: auto;
-}
-
-.week-grid-horizontal .day-box:nth-child(3) {
-  border-right: 1px solid var(--border);
-}
-
-.week-grid-horizontal .day-box:nth-child(5) {
-  border-right: none;
-}
-
-.week-grid-horizontal .day-box:nth-child(4),
-.week-grid-horizontal .day-box:nth-child(5) {
-  border-bottom: 1px solid var(--border);
-}
-
-.week-grid-horizontal .weekend-box {
-  grid-column: 1 / -1;
-  border-right: none;
-  border-bottom: none;
-}
-
-.week-grid-horizontal .weekend-split {
-  flex-direction: row;
-}
-
-.week-grid-horizontal .weekend-half {
-  border-right: 1px solid var(--border);
-  min-height: auto;
-}
-
-.week-grid-horizontal .weekend-half:last-child {
-  border-right: none;
-}
-
-.week-grid-horizontal .weekend-half textarea {
-  min-height: 60px;
-}
-
 /* ============================================
    DAY PLANNER
    ============================================ */
@@ -1408,24 +1321,6 @@ body {
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 900px) {
-  .week-grid-horizontal {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .week-grid-horizontal .day-box {
-    min-height: 120px;
-  }
-
-  .week-grid-horizontal .day-box:nth-child(5) {
-    border-right: 1px solid var(--border);
-  }
-
-  .week-grid-horizontal .weekend-box {
-    grid-column: span 3;
-  }
-}
-
 @media (max-width: 600px) {
   .week-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1437,14 +1332,6 @@ body {
 
   .weekend-split {
     flex-direction: row;
-  }
-
-  .week-grid-horizontal {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .week-grid-horizontal .weekend-box {
-    grid-column: span 2;
   }
 }
 
