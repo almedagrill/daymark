@@ -6,6 +6,14 @@ function WeekPlanner() {
   const [weekKey, setWeekKey] = useState(getCurrentWeekKey())
   const [plan, setPlan] = useState(getWeekPlan(weekKey))
   const [saved, setSaved] = useState(false)
+  const [layout, setLayout] = useState(() => {
+    return localStorage.getItem('daymark-week-layout') || 'compact'
+  })
+
+  const handleLayoutChange = (newLayout) => {
+    setLayout(newLayout)
+    localStorage.setItem('daymark-week-layout', newLayout)
+  }
 
   useEffect(() => {
     setPlan(getWeekPlan(weekKey))
@@ -78,7 +86,22 @@ function WeekPlanner() {
         </button>
       )}
 
-      <div className="week-grid">
+      <div className="layout-toggle">
+        <button
+          className={layout === 'compact' ? 'active' : ''}
+          onClick={() => handleLayoutChange('compact')}
+        >
+          Compact
+        </button>
+        <button
+          className={layout === 'horizontal' ? 'active' : ''}
+          onClick={() => handleLayoutChange('horizontal')}
+        >
+          Horizontal
+        </button>
+      </div>
+
+      <div className={`week-grid${layout === 'horizontal' ? ' week-grid-horizontal' : ''}`}>
         <div className="day-box">
           <div className="day-label">Mon <span className="day-date">{dates.mon}</span></div>
           <textarea
